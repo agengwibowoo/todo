@@ -2,22 +2,19 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 
-const SelectComponent = ({ label, placeholder, disabled, isError, errors }) => {
+const SelectComponent = ({ input, label, placeholder, disabled, values }) => {
     return (
         <Form.Group>
             <Form.Label>{label}</Form.Label>
             <Form.Control
                 as="select"
                 placeholder={placeholder}
-                disabled={disabled}>
-                <option>To Do</option>
-                <option>Done</option>
+                disabled={disabled}
+                value={values}
+                onChange={(event) => input.onChange(event.target.value)}>
+                <option value={0}>To Do</option>
+                <option value={1}>Done</option>
             </Form.Control>
-            {isError &&
-                <Form.Control.Feedback type="invalid">
-                    {errors}
-                </Form.Control.Feedback>
-            }
         </Form.Group>
     )
 }
@@ -26,14 +23,10 @@ SelectComponent.propTypes = {
     label: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
-    isError: PropTypes.bool,
-    errors: PropTypes.string,
 }
 
 SelectComponent.defaultProps = {
     disabled: false,
-    isError: false,
-    errors: '',
 }
 
 export default SelectComponent

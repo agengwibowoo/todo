@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Form, Field } from 'react-final-form';
 import InputComponent from '../form/InputComponent';
 import SelectComponent from '../form/SelectComponent';
+import { selectedTodo } from '../../actions/todo_action';
 
-const ModalEdit = ({ show, setShow, action, type }) => {
+const ModalEdit = ({ show, setShow, action }) => {
+    const { selectedPayload } = useSelector((state) => state.todo);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(selectedTodo);
+    }, [])
     const onSubmit = values => {
         window.alert(JSON.stringify(values, 0, 2));
     }
@@ -27,6 +34,7 @@ const ModalEdit = ({ show, setShow, action, type }) => {
             <Modal.Body>
                 <Form
                     onSubmit={onSubmit}
+                    initialValues={{ title: selectedPayload?.title, desc: selectedPayload?.description }}
                     render={({ handleSubmit }) => (
                         <form onSubmit={handleSubmit}>
                             <Field
@@ -47,6 +55,7 @@ const ModalEdit = ({ show, setShow, action, type }) => {
                                 name="status"
                                 label="Status"
                                 placeholder="Pilih status"
+                                values={selectedPayload?.status}
                                 component={SelectComponent}
                             />
                             <Button type="submit" style={{ float: 'right' }}>

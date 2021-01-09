@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-final-form';
 
-const ModalEdit = ({ show, setShow, action, type }) => {
+const ModalEdit = ({ show, setShow, action }) => {
     const onSubmit = () => {
         console.log('deleted')
     }

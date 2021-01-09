@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { Form, Field } from 'react-final-form';
 import InputComponent from '../form/InputComponent';
 
-const ModalEdit = ({ show, setShow, action, type }) => {
+const ModalEdit = ({ show, setShow, action }) => {
     const onSubmit = values => {
         window.alert(JSON.stringify(values, 0, 2));
     }
