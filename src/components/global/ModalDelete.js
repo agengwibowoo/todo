@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-final-form';
+import { useSelector, useDispatch } from "react-redux";
+import { selectedTodo, deleteTodo } from '../../actions/todo_action';
 
 const ModalEdit = ({ show, setShow, action }) => {
+    const { selectedPayload } = useSelector((state) => state.todo);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(selectedTodo);
+    }, [])
     const onSubmit = () => {
-        console.log('deleted')
+        dispatch(deleteTodo({
+            id: selectedPayload.id
+        }));
+        setShow(!setShow);
     }
     return (
         <Modal

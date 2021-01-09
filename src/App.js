@@ -30,7 +30,8 @@ const App = () => {
         title={item.title}
         desc={item.description}
         edit={() => handleCardEdit(item)}
-        deleteCard={(e) => handleCardDelete(e)}
+        status={item.status}
+        deleteCard={(e) => handleCardDelete(e, item)}
       />
     );
     doneList = payloadSortByDate.filter(({ status }) => status === 1).map(item =>
@@ -38,6 +39,7 @@ const App = () => {
         key={item.id}
         title={item.title}
         desc={item.description}
+        status={item.status}
         edit={() => handleCardEdit(item)}
       />
     );
@@ -50,8 +52,9 @@ const App = () => {
     dispatch(selectedTodo(item));
     setShowModalEdit(true);
   }
-  const handleCardDelete = (e) => {
+  const handleCardDelete = (e, item) => {
     e.stopPropagation();
+    dispatch(selectedTodo(item));
     setShowModalDelete(true);
   }
   return (

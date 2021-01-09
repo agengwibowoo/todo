@@ -38,13 +38,15 @@ const Delete = styled.div`
     }
 `
 
-const TodoCard = ({ title, desc, edit, deleteCard }) => {
+const TodoCard = ({ title, desc, status, edit, deleteCard }) => {
     return (
         <Container onClick={edit}>
             <Title>{title}</Title>
-            <Delete onClick={deleteCard}>
-                <XSquare size={14} />
-            </Delete>
+            { status === 0 &&
+                <Delete onClick={deleteCard}>
+                    <XSquare size={14} />
+                </Delete>
+            }
             <Desc>{desc}</Desc>
         </Container>
     )
@@ -52,6 +54,7 @@ const TodoCard = ({ title, desc, edit, deleteCard }) => {
 
 TodoCard.propTypes = {
     title: PropTypes.string.isRequired,
+    status: PropTypes.number.isRequired,
     desc: PropTypes.string,
 }
 

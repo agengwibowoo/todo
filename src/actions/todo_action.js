@@ -6,6 +6,7 @@ export const TODO_ERROR = "TODO_ERROR";
 export const TODO_SELECTED = "TODO_SELECTED";
 export const TODO_ADD = "TODO_ADD";
 export const TODO_EDIT = "TODO_EDIT";
+export const TODO_DELETE = "TODO_DELETE";
 
 export const todo = () => {
     return dispatch => {
@@ -38,6 +39,13 @@ export const addTodo = (payload) => {
 export const editTodo = (payload) => {
     return {
         type: TODO_EDIT,
+        payload: payload,
+    }
+}
+
+export const deleteTodo = (payload) => {
+    return {
+        type: TODO_DELETE,
         payload: payload,
     }
 }
