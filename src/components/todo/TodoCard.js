@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { XSquare } from 'react-bootstrap-icons';
 
 const Container = styled.div`
     background-color: #fff;
@@ -17,21 +18,33 @@ const Container = styled.div`
     &:hover {
         background-color: #f4f6f7;
     }
-`
+    `
 
 const Title = styled.span`
     font-size: 20px;
-`
+    `
 
 const Desc = styled.p`
     font-size: 14px;
     color: #7A8599;
+    `
+
+const Delete = styled.div`
+    display: inline;
+    float: right;
+    border-radius: 5px;
+    &:hover {
+        color: red;
+    }
 `
 
-const TodoCard = ({ title, desc, detail }) => {
+const TodoCard = ({ title, desc, edit, deleteCard }) => {
     return (
-        <Container onClick={detail}>
+        <Container onClick={edit}>
             <Title>{title}</Title>
+            <Delete onClick={deleteCard}>
+                <XSquare size={14} />
+            </Delete>
             <Desc>{desc}</Desc>
         </Container>
     )
