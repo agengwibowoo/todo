@@ -2,7 +2,8 @@ import {
     TODO_PENDING,
     TODO_SUCCESS,
     TODO_ERROR,
-    TODO_SELECTED
+    TODO_SELECTED,
+    TODO_ADD,
 } from "../actions/todo_action";
 
 const initialState = {
@@ -34,10 +35,15 @@ export function todo(
                 pending: false,
                 error: action.error,
             };
-        case TODO_SELECTED: 
+        case TODO_SELECTED:
             return {
                 ...state,
                 selectedPayload: action.payload
+            }
+        case TODO_ADD:
+            return {
+                ...state,
+                payload: [...state.payload, { ...action.payload, id: state.payload.length + 1 }]
             }
         default:
             return state;

@@ -3,10 +3,19 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Form, Field } from 'react-final-form';
 import InputComponent from '../form/InputComponent';
+import { useDispatch } from "react-redux";
+import { addTodo } from '../../actions/todo_action';
 
 const ModalEdit = ({ show, setShow, action }) => {
+    const dispatch = useDispatch();
     const onSubmit = values => {
-        window.alert(JSON.stringify(values, 0, 2));
+        dispatch(addTodo({
+            title: values.title,
+            description: values.description,
+            createdAt: new Date(),
+            status: 0
+        }));
+        setShow(!setShow);
     }
     const required = value => (value ? undefined : 'Judul harus diisi!')
     return (
