@@ -4,6 +4,7 @@ import {
     TODO_ERROR,
     TODO_SELECTED,
     TODO_ADD,
+    TODO_EDIT
 } from "../actions/todo_action";
 
 const initialState = {
@@ -44,6 +45,12 @@ export function todo(
             return {
                 ...state,
                 payload: [...state.payload, { ...action.payload, id: state.payload.length + 1 }]
+            }
+        case TODO_EDIT:
+            const index = state.payload.findIndex(({ id }) => id === action.payload.id);
+            state.payload[index] = action.payload;
+            return {
+                ...state,
             }
         default:
             return state;

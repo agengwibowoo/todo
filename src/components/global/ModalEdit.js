@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { Form, Field } from 'react-final-form';
 import InputComponent from '../form/InputComponent';
 import SelectComponent from '../form/SelectComponent';
-import { selectedTodo } from '../../actions/todo_action';
+import { selectedTodo, editTodo } from '../../actions/todo_action';
 
 const ModalEdit = ({ show, setShow, action }) => {
     const { selectedPayload } = useSelector((state) => state.todo);
@@ -14,7 +14,13 @@ const ModalEdit = ({ show, setShow, action }) => {
         dispatch(selectedTodo);
     }, [])
     const onSubmit = values => {
-        window.alert(JSON.stringify(values, 0, 2));
+        dispatch(editTodo({
+            title: values.title,
+            description: values.description,
+            status: parseInt(values.status),
+            id: selectedPayload.id
+        }));
+        setShow(!setShow);
     }
     const required = value => (value ? undefined : 'Judul harus diisi!')
     return (
@@ -34,7 +40,7 @@ const ModalEdit = ({ show, setShow, action }) => {
             <Modal.Body>
                 <Form
                     onSubmit={onSubmit}
-                    initialValues={{ title: selectedPayload?.title, desc: selectedPayload?.description }}
+                    initialValues={{ title: selectedPayload?.title, description: selectedPayload?.description, status: selectedPayload?.status }}
                     render={({ handleSubmit }) => (
                         <form onSubmit={handleSubmit}>
                             <Field
@@ -45,7 +51,7 @@ const ModalEdit = ({ show, setShow, action }) => {
                                 component={InputComponent}
                             />
                             <Field
-                                name="desc"
+                                name="description"
                                 label="Deskripsi"
                                 placeholder="Masukkan deskripsi"
                                 isTextArea
@@ -55,7 +61,6 @@ const ModalEdit = ({ show, setShow, action }) => {
                                 name="status"
                                 label="Status"
                                 placeholder="Pilih status"
-                                values={selectedPayload?.status}
                                 component={SelectComponent}
                             />
                             <Button type="submit" style={{ float: 'right' }}>
